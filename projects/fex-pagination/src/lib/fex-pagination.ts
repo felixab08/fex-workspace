@@ -13,18 +13,12 @@ export class FexPagination {
   pages = input(0);
   totalElements = input(0);
   currentPage = input<number>(1); // N° de paginas
-  currentSize = input<number>(10); // Cantidad de Datos que desea que venga en lista
-  currentStatus = input<string>('All'); // Estado actual
-  currentSearchTerm = input<string>(''); // Busqueda por termino
-  currentDateStartValue = input<string>(''); // Fecha inicial del filtro
-  currentDateEndValue = input<string>(''); // Fecha final del filtro
+  currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
 
-  itemsPage = signal(10);
+  itemsPage = signal(5);
 
   activePage = linkedSignal(this.currentPage);
   activeSize = linkedSignal(this.currentSize);
-  activeStatus = linkedSignal(this.currentStatus);
-  activeSearchTerm = linkedSignal(this.currentSearchTerm);
 
   _router = inject(Router);
 
@@ -38,6 +32,8 @@ export class FexPagination {
   getPaginationButtons = computed(() => {
     const pages = this.pages();
     const active = this.activePage();
+    console.log('active==', active);
+
     const buttons: (number | string)[] = [];
 
     if (pages <= 10) {
@@ -72,6 +68,7 @@ export class FexPagination {
     if (!buttons.includes(pages)) {
       buttons.push(pages);
     }
+    console.log(buttons);
 
     return buttons;
   });
@@ -83,6 +80,7 @@ export class FexPagination {
 
   previousPage() {
     if (this.activePage() > 1) {
+      console.log('previousPage=', this.activePage());
       this.activePage.set(this.activePage() - 1);
       this.nextPageEvent.emit(this.activePage());
     }
@@ -116,23 +114,7 @@ export class FexPagination {
     const params: Record<string, any> = {
       page,
       size: this.activeSize(),
-      status: this.activeStatus(),
     };
-
-    const term = this.activeSearchTerm();
-    if (term !== null && term !== undefined && String(term).trim() !== '') {
-      params['searchTerm'] = term;
-    }
-
-    const start = this.currentDateStartValue();
-    if (start !== null && start !== undefined && String(start).trim() !== '') {
-      params['dateInitialFilter'] = start;
-    }
-
-    const end = this.currentDateEndValue();
-    if (end !== null && end !== undefined && String(end).trim() !== '') {
-      params['dateEndFilter'] = end;
-    }
 
     return params;
   }

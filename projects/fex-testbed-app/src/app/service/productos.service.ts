@@ -11,9 +11,7 @@ export class ProductosService {
   private _mockApiService = inject(MockApiService);
 
   getProductos(params: IParams): Observable<IProductRespo> {
-    return this._mockApiService
-      .handleRequest('GET', 'api/apps/ecommerce/productos', params)
-      .pipe(tap(console.log));
+    return this._mockApiService.handleRequest('GET', 'api/apps/ecommerce/productos', params);
   }
 }
 

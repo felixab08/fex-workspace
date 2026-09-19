@@ -11,17 +11,17 @@ export class LinkParamService {
   currentPage = toSignal(
     this._activatedRoute.queryParamMap.pipe(
       map((params) => (params.get('page') ? +params.get('page')! : 1)),
-      map((page) => (isNaN(page) ? 1 : page)),
+      map((page) => (isNaN(page) ? 0 : page)),
     ),
     {
-      initialValue: 1,
+      initialValue: 0,
     },
   );
 
   currentSize = toSignal(
     this._activatedRoute.queryParamMap.pipe(
       map((params) => (params.get('size') ? +params.get('size')! : 10)),
-      map((size) => (isNaN(size) ? 10 : size)),
+      map((size) => (isNaN(size) ? 5 : size)),
     ),
     {
       initialValue: 10,
