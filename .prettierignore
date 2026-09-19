@@ -1,0 +1,8 @@
+# Ignore file:
+types
+interface
+
+
+# Ignore all TS files:
+
+**/*.interface.ts

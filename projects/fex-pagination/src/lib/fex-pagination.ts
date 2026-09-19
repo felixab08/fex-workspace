@@ -40,7 +40,7 @@ export class FexPagination {
     const active = this.activePage();
     const buttons: (number | string)[] = [];
 
-    if (pages <= 7) {
+    if (pages <= 10) {
       // Si hay 7 o menos páginas, mostrar todas
       return Array.from({ length: pages }, (_, i) => i + 1);
     }

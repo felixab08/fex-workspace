@@ -28,6 +28,7 @@
     "@angular/forms": "^22.1.0",
     "@angular/platform-browser": "^22.1.0",
     "@angular/router": "^22.1.0",
+    "lodash-es": "^4.18.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -37,6 +38,7 @@
     "@angular/compiler-cli": "^22.1.0",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4.1.12",
+    "@types/lodash-es": "^4.17.12",
     "angular-eslint": "22.5.0",
     "eslint": "^10.9.1",
     "jsdom": "^28.1.0",

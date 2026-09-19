@@ -1,5 +1,9 @@
-import { Component, signal } from '@angular/core';
-import { FexPagination } from 'fex-pagination';
+import { Component, inject, signal } from '@angular/core';
+import { FexPagination, LinkParamService } from 'fex-pagination';
+import { ProductosService } from './service';
+import { ProductosDataService } from './mock/productos.service';
+import { IProducto } from './interface';
+import { rxResource } from '@angular/core/rxjs-interop';
 @Component({
   imports: [FexPagination],
   selector: 'app-root',
@@ -8,16 +12,30 @@ import { FexPagination } from 'fex-pagination';
 })
 export class App {
   protected readonly title = signal('fex-testbed-app');
-  collection: Array<string> = [];
-  constructor() {
-    for (let i = 1; i <= 20; i++) {
-      this.collection.push(`item ${i}`);
-    }
-  }
+  _productosService = inject(ProductosService);
+  private _productosDataService = inject(ProductosDataService); // Inicializa los handlers mock
+  productos = signal<IProducto[] | null>(null);
+  public _paginationService = inject(LinkParamService);
+  constructor() {}
   nextPage(event: string | number) {
     console.log('next==', event);
   }
   previewPage(event: string | number) {
     console.log('preview', event);
   }
+
+  productoResorce = rxResource({
+    params: () => ({
+      page: this._paginationService.currentPage() - 1,
+      size: this._paginationService.currentSize(),
+    }),
+    stream: ({ params }) => {
+      return (
+        this._productosService.getProductos({
+          page: params.page,
+          size: params.size,
+        }) || {}
+      );
+    },
+  });
 }
