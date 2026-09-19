@@ -6,7 +6,18 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint",
+    "fex-alert:build": "ng build fex-alert --configuration development",
+    "fex-alert:test": "ng test fex-alert",
+    "fex-alert:lint": "ng lint fex-pagination",
+    "fex-alert:watch": "ng build fex-alert --watch",
+    "fex-alert:publish": "npm run fex-alert:test && fex-alert:build && npm publish dist/fex-alert/",
+    "fex-pagination:build": "ng build fex-pagination --configuration development",
+    "fex-pagination:test": "ng test fex-pagination",
+    "fex-pagination:watch": "ng build fex-pagination --watch",
+    "fex-pagination:lint": "ng lint fex-pagination",
+    "fex-pagination:publish": "npm run fex-pagination:test && fex-pagination:build && npm publish dist/fex-pagination/"
   },
   "private": true,
   "packageManager": "npm@12.0.2",
@@ -21,9 +32,20 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular/build": "^22.1.8",
     "@angular/cli": "^22.1.3",
     "@angular/compiler-cli": "^22.1.0",
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/postcss": "^4.1.12",
+    "angular-eslint": "22.5.0",
+    "eslint": "^10.9.1",
+    "jsdom": "^28.1.0",
+    "ng-packagr": "^22.1.0",
+    "postcss": "^8.5.3",
     "prettier": "^3.8.1",
-    "typescript": "~6.0.2"
+    "tailwindcss": "^4.1.12",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "8.69.0",
+    "vitest": "^4.1.11"
   }
 }

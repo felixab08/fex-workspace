@@ -4,6 +4,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "noImplicitOverride": true,
+    "paths": {
+      "fex-alert": ["./dist/fex-alert"],
+      "fex-pagination": ["./dist/fex-pagination"]
+    },
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
@@ -19,5 +23,25 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true
   },
-  "files": []
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/fex-pagination/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/fex-pagination/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/fex-alert/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/fex-alert/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/fex-testbed-app/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/fex-testbed-app/tsconfig.spec.json"
+    }
+  ]
 }

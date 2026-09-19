@@ -6,5 +6,118 @@
   },
   "newProjectRoot": "projects",
   "projects": {
+    "fex-pagination": {
+      "projectType": "library",
+      "root": "projects/fex-pagination",
+      "sourceRoot": "projects/fex-pagination/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/fex-pagination/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/fex-pagination/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/fex-pagination/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "fex-alert": {
+      "projectType": "library",
+      "root": "projects/fex-alert",
+      "sourceRoot": "projects/fex-alert/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/fex-alert/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/fex-alert/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/fex-alert/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "fex-testbed-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/fex-testbed-app",
+      "sourceRoot": "projects/fex-testbed-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/fex-testbed-app/src/main.ts",
+            "tsConfig": "projects/fex-testbed-app/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/fex-testbed-app/public"
+              }
+            ],
+            "styles": ["projects/fex-testbed-app/src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "fex-testbed-app:build:production"
+            },
+            "development": {
+              "buildTarget": "fex-testbed-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    }
   }
 }

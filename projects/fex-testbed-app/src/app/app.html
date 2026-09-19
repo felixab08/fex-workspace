@@ -1,0 +1,25 @@
+<div class="text-center">
+  <h1>ngx-pagination live demo</h1>
+  <h4>
+    <small><a href="https://github.com/michaelbromley/ngx-pagination">GitHub Repo</a></small>
+  </h4>
+  <p>A bare-bones demo for your experimenting / bug-reproducing pleasure.</p>
+</div>
+<div class="mb-2 m-auto">
+  <ul>
+    @for (item of collection; track $index) {
+      <li>
+        {{ item }}
+      </li>
+    }
+  </ul>
+
+  <fex-pagination
+    [pages]="10"
+    [totalElements]="100"
+    [currentPage]="0"
+    [currentSize]="10"
+    (nextPageEvent)="nextPage($event)"
+    (previewPageEvent)="previewPage($event)"
+  />
+</div>
