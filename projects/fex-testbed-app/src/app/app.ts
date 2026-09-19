@@ -17,12 +17,7 @@ export class App {
   productos = signal<IProducto[] | null>(null);
   public _paginationService = inject(LinkParamService);
   constructor() {}
-  nextPage(event: string | number) {
-    console.log('next==', event);
-  }
-  previewPage(event: string | number) {
-    console.log('preview', event);
-  }
+
 
   productoResorce = rxResource({
     params: () => ({

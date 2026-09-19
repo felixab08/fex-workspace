@@ -84,7 +84,12 @@ export class ProductosDataService {
         200,
         {
           products,
-          pagination,
+          length: productsLength,
+          size: size,
+          page: page,
+          lastPage: lastPage,
+          startIndex: begin,
+          endIndex: end - 1,
         },
       ];
     });

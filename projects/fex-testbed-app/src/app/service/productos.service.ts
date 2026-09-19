@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { IParams, IProducto } from '../interface';
+import { of, tap, map } from 'rxjs';
+import { IParams, IProductRespo } from '../interface';
 import { MockApiService } from './mockapi.service';
 
 @Injectable({
@@ -10,10 +10,10 @@ import { MockApiService } from './mockapi.service';
 export class ProductosService {
   private _mockApiService = inject(MockApiService);
 
-  getProductos(params: IParams): Observable<IProducto[]> {
+  getProductos(params: IParams): Observable<IProductRespo> {
     return this._mockApiService
       .handleRequest('GET', 'api/apps/ecommerce/productos', params)
-      .pipe(map((res: any) => res.products ?? res));
+      .pipe(tap(console.log));
   }
 }
 

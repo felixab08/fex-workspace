@@ -1,3 +1,9 @@
+import { IPagination } from "./params.interface";
+
+  export interface IProductRespo extends IPagination{
+    products : IProducto[]
+  }
+
   export interface IProducto {
   id:          string;
   category:    string;

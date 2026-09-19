@@ -21,9 +21,9 @@
   </thead>
   <tbody>
     @if (productoResorce.hasValue()) {
-      @for (product of productoResorce.value(); track $index; let i = $index) {
+      @for (product of productoResorce.value().products; track $index; let i = $index) {
         <tr class="bg-neutral-primary border-b border-default">
-          <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ i + 1 }}</th>
+          <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{product.id }}</th>
           <td class="px-6 py-4">{{ product.name }}</td>
           <td class="px-6 py-4">{{ product.price }}</td>
           <td class="px-6 py-4">{{ product.description }}</td>
@@ -37,13 +37,13 @@
   </tbody>
 </table>
 </div>
+    @if (productoResorce.hasValue()) {
 
   <fex-pagination
-    [pages]="10"
-    [totalElements]="100"
-    [currentPage]="0"
-    [currentSize]="10"
-    (nextPageEvent)="nextPage($event)"
-    (previewPageEvent)="previewPage($event)"
+    [pages]="productoResorce.value().lastPage"
+    [totalElements]="productoResorce.value().lastPage"
+    [currentPage]="productoResorce.value().page"
+    [currentSize]="productoResorce.value().size"
   />
+    }
 </div>

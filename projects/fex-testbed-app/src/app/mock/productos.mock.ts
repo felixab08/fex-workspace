@@ -2,7 +2,7 @@ import { IProducto } from '../interface';
 
 export const products: IProducto[] = [
   {
-    id: '7eb7c859-1347-4317-96b6-9476a7e2ba3c',
+    id: 'A001',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Capmia Mens Chronograph Watch 44mm 5 ATM',
     description:
@@ -34,7 +34,7 @@ export const products: IProducto[] = [
     active: true,
   },
   {
-    id: '00b0292f-3d50-4669-a0c4-7a9d85efc98d',
+    id: 'A002',
     category: '07986d93-d4eb-4de1-9448-2538407f7254',
     name: 'Zeon Ladies Chronograph Watch 40mm 10 ATM',
     description:
@@ -66,7 +66,7 @@ export const products: IProducto[] = [
     active: true,
   },
   {
-    id: '3f34e2fb-95bf-4f61-be28-956d2c7e4eb2',
+    id: 'A003',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Benton Mens Automatic Watch 44mm 5 ATM',
     description:
@@ -98,7 +98,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '8fcce528-d878-4cc8-99f7-bd3451ed5405',
+    id: 'A004',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Capmia Mens Chronograph Watch 44mm 10 ATM',
     description:
@@ -130,7 +130,7 @@ export const products: IProducto[] = [
     active: true,
   },
   {
-    id: '91d96e18-d3f5-4c32-a8bf-1fc525cb92c0',
+    id: 'A005',
     category: '07986d93-d4eb-4de1-9448-2538407f7254',
     name: 'Benton Ladies Automatic Watch 40mm 5 ATM',
     description:
@@ -162,7 +162,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: 'd7a47d7c-4cdf-4319-bbaa-37ade38c622c',
+    id: 'A006',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Benton Mens Chronograph Watch 44mm 10 ATM',
     description:
@@ -194,7 +194,7 @@ export const products: IProducto[] = [
     active: true,
   },
   {
-    id: 'ecf0b3df-38c3-45dc-972b-c509a3dc053e',
+    id: 'A007',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Benton Mens Chronograph Watch 44mm 10 ATM',
     description:
@@ -226,7 +226,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '5765080a-aaee-40b9-86be-c18b9d79c73c',
+    id: 'A008',
     category: 'ad12aa94-3863-47f8-acab-a638ef02a3e9',
     name: 'Benton Unisex Automatic Watch 40mm 10 ATM',
     description:
@@ -258,7 +258,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '6e71be88-b225-474c-91e5-111ced7d6220',
+    id: 'A009',
     category: '07986d93-d4eb-4de1-9448-2538407f7254',
     name: 'Premera Ladies Chronograph Watch 40mm 5 ATM',
     description:
@@ -290,7 +290,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '51242500-6983-4a78-bff3-d278eb4e3a57',
+    id: 'A010',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Lara Mens Automatic Watch 44mm 10 ATM',
     description:
@@ -322,7 +322,7 @@ export const products: IProducto[] = [
     active: true,
   },
   {
-    id: '844a4395-233f-4ffb-85bd-7baa0e490a88',
+    id: 'A011',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Lara Mens Chronograph Watch 44mm 5 ATM',
     description:
@@ -354,7 +354,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '7520f1b6-3c45-46ef-a4d5-881971212d1e',
+    id: 'A012',
     category: 'ad12aa94-3863-47f8-acab-a638ef02a3e9',
     name: 'Benton Unisex Automatic Watch 40mm 10 ATM',
     description:
@@ -386,7 +386,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '683e41d8-6ebc-4e6a-a7c1-9189ca52ef19',
+    id: 'A013',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Zeon Mens Chronograph Watch 44mm 10 ATM',
     description:
@@ -418,7 +418,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: 'd4e52238-292d-462b-b9bb-1751030132e2',
+    id: 'A014',
     category: 'ad12aa94-3863-47f8-acab-a638ef02a3e9',
     name: 'Lara Unisex Chronograph Watch 40mm 5 ATM',
     description:
@@ -450,7 +450,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '98861dfc-0d21-4fd5-81aa-49785d003d95',
+    id: 'A015',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Premera Mens Automatic Watch 44mm 10 ATM',
     description:
@@ -482,7 +482,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: 'a71f9b10-e884-4aad-9810-29fe10ce6d42',
+    id: 'A016',
     category: '07986d93-d4eb-4de1-9448-2538407f7254',
     name: 'Lara Ladies Chronograph Watch 40mm 5 ATM',
     description:
@@ -514,7 +514,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '149e6db5-4ecc-4021-bc56-08b27514a746',
+    id: 'A017',
     category: '07986d93-d4eb-4de1-9448-2538407f7254',
     name: 'Lara Ladies Chronograph Watch 40mm 5 ATM',
     description:
@@ -546,7 +546,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '655287de-2e24-41f3-a82f-8b08548ecc39',
+    id: 'A018',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Zeon Mens Automatic Watch 44mm 10 ATM',
     description:
@@ -578,7 +578,7 @@ export const products: IProducto[] = [
     active: true,
   },
   {
-    id: 'c215b427-d840-4537-aea1-a9bdfa49441b',
+    id: 'A019',
     category: 'ad12aa94-3863-47f8-acab-a638ef02a3e9',
     name: 'Lara Unisex Automatic Watch 40mm 10 ATM',
     description:
@@ -610,7 +610,7 @@ export const products: IProducto[] = [
     active: true,
   },
   {
-    id: '8b1d9366-891e-49cd-aafb-ac65ce2741e2',
+    id: 'A020',
     category: '07986d93-d4eb-4de1-9448-2538407f7254',
     name: 'Zeon Ladies Automatic Watch 40mm 10 ATM',
     description:
@@ -642,7 +642,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '54e29534-518b-4006-b72a-f21fac6c4d5e',
+    id: 'A021',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Lara Mens Chronograph Watch 44mm 10 ATM',
     description:
@@ -674,7 +674,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: '6a5726e8-c467-45ea-92ab-d83235a06405',
+    id: 'A022',
     category: 'b899ec30-b85a-40ab-bb1f-18a596d5c6de',
     name: 'Premera Mens Chronograph Watch 44mm 10 ATM',
     description:
@@ -706,7 +706,7 @@ export const products: IProducto[] = [
     active: false,
   },
   {
-    id: 'd7d1d6df-e91f-4c53-982a-2720bc2b4cdd',
+    id: 'A023',
     category: 'ad12aa94-3863-47f8-acab-a638ef02a3e9',
     name: 'Capmia Unisex Automatic Watch 40mm 10 ATM',
     description:
