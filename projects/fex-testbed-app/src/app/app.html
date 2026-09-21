@@ -1,9 +1,5 @@
 <div class="text-center">
-  <h1>ngx-pagination live demo</h1>
-  <h4>
-    <small><a href="https://github.com/michaelbromley/ngx-pagination">GitHub Repo</a></small>
-  </h4>
-  <p>A bare-bones demo for your experimenting / bug-reproducing pleasure.</p>
+<fex-title title="Tabla Inicio" subTitle="Creado en pruebas" />
 </div>
 <div class="mb-2 m-auto">
   <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
@@ -37,13 +33,4 @@
   </tbody>
 </table>
 </div>
-    @if (productoResorce.hasValue()) {
-
-  <fex-pagination
-    [pages]="productoResorce.value().lastPage"
-    [totalElements]="productoResorce.value().lastPage"
-    [currentPage]="productoResorce.value().page"
-    [currentSize]="productoResorce.value().size"
-  />
-    }
 </div>

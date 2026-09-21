@@ -1,0 +1,461 @@
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+export class FormValitador {
+  // [TODO] expresiones regulares
+  static onlyNumbers = '/^[0-9]+$/';
+  static doblePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+  static dobleLastName = '([a-zA-Z]+) ([a-zA-Z]+)';
+  static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
+  static urlRegex =
+    /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+
+  static isValiedField(form: FormGroup, fieldName: string): boolean | null {
+    const control = form.controls[fieldName];
+    if (!control) return false;
+    return !!control.errors && control.touched;
+  }
+
+  static getFieldError(form: FormGroup, fieldName: string): string | null {
+    if (!form.controls[fieldName]) return null;
+    const errors = form.controls[fieldName].errors ?? form.errors ?? {};
+
+    for (const key of Object.keys(errors)) {
+      switch (key) {
+        case 'required':
+          return `El campo es requerido`;
+        case 'minlength':
+          return `El campo debe ser al menos ${errors['minlength'].requiredLength} caracteres`;
+        case 'min':
+          return `El campo debe ser mayor que ${errors['min'].min}`;
+        case 'pattern':
+          if (errors['pattern'].requiredPattern === FormValitador.doblePattern) {
+            return `El campo debe ser un nombre y apellido`;
+          }
+          if (errors['pattern'].requiredPattern === FormValitador.emailPattern) {
+            return `El campo debe ser un correo válido`;
+          }
+          if (errors['pattern'].requiredPattern === `${FormValitador.urlRegex}`) {
+            return `El campo debe ser un URL válido`;
+          }
+          if (errors['onlyNumbers'].requiredPattern === `${FormValitador.onlyNumbers}`) {
+            return `El campo debe ser un número válido`;
+          }
+          return `El campo no cumple con el formato requerido`;
+        case 'dataMaxToday':
+          return `La fecha debe ser menor o igual a la fecha actual`;
+        case 'dateMinToday':
+          return `La fecha debe ser mayor o igual a la fecha actual`;
+        case 'minHours':
+          return `La hora debe ser mayor o igual a la hora actual`;
+        case 'todayPreciceValidate':
+          return `La fecha y hora deben ser mayores o iguales a la fecha y hora actuales`;
+        case 'dateRangeCurrentDate':
+          return `La fecha de inicio debe ser menor que la fecha de fin`;
+        case 'edadMinima':
+          return `La edad mínima es de ${errors['edadMinima'].requerido} años. La edad actual es de ${errors['edadMinima'].actual} años`;
+        case 'contraseñaInsegura':
+          if (!errors['contraseñaInsegura'].tieneMayuscula) {
+            return `La contraseña debe contener al menos una letra mayúscula`;
+          }
+          if (!errors['contraseñaInsegura'].tieneMinuscula) {
+            return `La contraseña debe contener al menos una letra minúscula`;
+          }
+          if (!errors['contraseñaInsegura'].tieneNumero) {
+            return `La contraseña debe contener al menos un número`;
+          }
+          if (!errors['contraseñaInsegura'].tieneEspecial) {
+            return `La contraseña debe contener al menos un carácter especial`;
+          }
+          if (!errors['contraseñaInsegura'].longitudSuficiente) {
+            return `La contraseña debe tener al menos 8 caracteres`;
+          }
+          return `La contraseña no cumple con los requisitos de seguridad`;
+        case 'contraseñasNoCoinciden':
+          return `Las contraseñas no coinciden`;
+        case 'dniPeruano':
+          return `El DNI debe contener exactamente 8 dígitos`;
+        case 'validateCantNumber':
+          return `${errors['validateCantNumber'].name} debe contener ${errors['validateCantNumber'].cant} dígitos`;
+        default:
+          return 'Error de validación no controlado';
+      }
+    }
+    return null;
+  }
+
+  static noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      const isValid = !isWhitespace;
+      return isValid ? null : { whitespace: true };
+    };
+  }
+
+  /** dataMaxToday()
+   * valida que el datapiker seleccionado no sobrepase al día de hoy
+   */
+  static dataMaxToday(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const value = control.value;
+      const dateForm = new Date(value);
+      const dateToday = new Date();
+      let valid: boolean = dateToday.getTime() >= dateForm.getTime();
+      return valid ? null : { dataMaxToday: true };
+    };
+  }
+  /**
+   * dateMinToday()
+   * Valida que la fecha seleccionada no sea menor a la fecha actual pero debe incluir el dia de hoy
+   * @returns
+   */
+
+  static dateMinToday(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const selectedDate =
+        typeof control.value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(control.value)
+          ? (() => {
+              const [year, month, day] = control.value.split('-').map(Number);
+              return new Date(year, month - 1, day);
+            })()
+          : new Date(control.value);
+
+      if (isNaN(selectedDate.getTime())) {
+        return { dateMinToday: true };
+      }
+
+      selectedDate.setHours(0, 0, 0, 0);
+      return new Date().setHours(0, 0, 0, 0) <= selectedDate.getTime()
+        ? null
+        : { dateMinToday: true };
+    };
+  }
+
+  /**
+   * Valida que la startDate (fecha desde) sea menor que la endDate (fecha hasta)
+   * Y que la startDate (fecha desde) y endDate (fecha hasta) sea menor que la fecha actual
+   * @param formGroup formulario
+   * @param startDate fecha inicio
+   * @param endDate fecha fin
+   * @returns objeto errorDateRange
+   */
+  static dateRangeCurrentDate(
+    formGroup: FormGroup,
+    startDate: string,
+    endDate: string,
+  ): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      let valid: boolean = true;
+      if (
+        formGroup.controls[startDate].value != null &&
+        formGroup.controls[endDate].value != null
+      ) {
+        const fechaActual = new Date();
+        const fechaDesde = new Date(formGroup.controls[startDate].value);
+        const fechaHasta = new Date(formGroup.controls[endDate].value);
+
+        const compararFechaActual = new Date(
+          fechaActual.getFullYear(),
+          fechaActual.getMonth(),
+          fechaActual.getDate(),
+        );
+        const compararFechaDesde = new Date(
+          fechaDesde.getFullYear(),
+          fechaDesde.getMonth(),
+          fechaDesde.getDate(),
+        );
+        const compararFechaHasta = new Date(
+          fechaHasta.getFullYear(),
+          fechaHasta.getMonth(),
+          fechaHasta.getDate(),
+        );
+
+        if (
+          compararFechaDesde.getTime() < compararFechaActual.getTime() ||
+          compararFechaHasta.getTime() < compararFechaActual.getTime()
+        ) {
+          return null;
+        }
+        if (compararFechaDesde.getTime() > compararFechaHasta.getTime()) {
+          valid = false;
+        } else {
+          formGroup.controls[startDate].setErrors(
+            this._deleteError(formGroup.controls[startDate].errors, 'errorDateRange'),
+          );
+          formGroup.controls[endDate].setErrors(
+            this._deleteError(formGroup.controls[endDate].errors, 'errorDateRange'),
+          );
+        }
+      }
+      return valid ? null : { errorDateRange: true };
+    };
+  }
+
+  /**
+   * Validation that checks if current file extension is on the expected types set
+   *
+   * @param types where you define the group of extensions
+   * @returns ValidationErrors in case the file extension is not the expected one
+   */
+  static requiredFileType(types: string[]): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const file = control.value;
+      if (file) {
+        const extensionLowerCase = file.split('.').pop().toLowerCase();
+        const typesToLowerCase = types.map((type) => type.toLowerCase());
+        return !typesToLowerCase.includes(extensionLowerCase) ? { requiredFileType: true } : null;
+      }
+      return null;
+    };
+  }
+  /**
+   * Valida que la startNumber (número inicial) sea menor que la endNumber (número final)
+   * @param formGroup formulario
+   * @param startNumber número inicial
+   * @param endNumber número final
+   * @returns objeto errorCompareNumber
+   */
+  static compareNumbers(formGroup: FormGroup, startNumber: any, endNumber: any): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      let valid: boolean = true;
+      if (
+        formGroup.controls[startNumber].value != null &&
+        formGroup.controls[endNumber].value != null
+      ) {
+        valid =
+          parseInt(formGroup.controls[startNumber].value) <
+          parseInt(formGroup.controls[endNumber].value);
+        if (valid) {
+          formGroup.controls[startNumber].setErrors(
+            this._deleteError(formGroup.controls[startNumber].errors, 'errorCompareNumber'),
+          );
+          formGroup.controls[endNumber].setErrors(
+            this._deleteError(formGroup.controls[endNumber].errors, 'errorCompareNumber'),
+          );
+        }
+      }
+      return valid ? null : { errorCompareNumber: true };
+    };
+  }
+  /**
+   * Valida que la fecha de nacimiento sea mayor o igual a la edad mínima
+   * @param edadMinima edad mínima
+   * @returns objeto errorEdadMinima
+   */
+  static edadMinimaValidator(edadMinima: number = 18): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const fechaNacimiento = new Date(control.value);
+      if (isNaN(fechaNacimiento.getTime())) {
+        return { fechaInvalida: true };
+      }
+
+      const hoy = new Date();
+      const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+      const cumpleEsteAnio =
+        hoy.getMonth() > fechaNacimiento.getMonth() ||
+        (hoy.getMonth() === fechaNacimiento.getMonth() &&
+          hoy.getDate() >= fechaNacimiento.getDate());
+
+      const edadReal = cumpleEsteAnio ? edad : edad - 1;
+
+      return edadReal >= edadMinima
+        ? null
+        : { edadMinima: { requerido: edadMinima, actual: edadReal } };
+    };
+  }
+
+  static passwordSeguraValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valor = control.value || '';
+
+      const tieneMayuscula = /[A-Z]/.test(valor);
+      const tieneMinuscula = /[a-z]/.test(valor);
+      const tieneNumero = /[0-9]/.test(valor);
+      const tieneEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(valor);
+      const longitudSuficiente = valor.length >= 8;
+
+      const esValida =
+        tieneMayuscula && tieneMinuscula && tieneNumero && tieneEspecial && longitudSuficiente;
+
+      return esValida
+        ? null
+        : {
+            contraseñaInsegura: {
+              tieneMayuscula,
+              tieneMinuscula,
+              tieneNumero,
+              tieneEspecial,
+              longitudSuficiente,
+            },
+          };
+    };
+  }
+
+  static passIgualesValidator(passOne: string, passTwo: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const grupo = formGroup as FormGroup;
+      const pass = grupo.get(passOne)?.value;
+      const confirm = grupo.get(passTwo)?.value;
+
+      if (pass !== confirm) {
+        grupo.get(passTwo)?.setErrors({ contraseñasNoCoinciden: true });
+        return { contraseñasNoCoinciden: true };
+      } else {
+        const errores = grupo.get(passTwo)?.errors;
+        if (errores) {
+          delete errores['contraseñasNoCoinciden'];
+          if (Object.keys(errores).length === 0) {
+            grupo.get(passTwo)?.setErrors(null);
+          } else {
+            grupo.get(passTwo)?.setErrors(errores);
+          }
+        }
+        return null;
+      }
+    };
+  }
+
+  /**
+   * Valida que el DNI peruano sea válido
+   * - Debe contener exactamente 8 caracteres
+   * - Debe ser numérico
+   * - Puede iniciar en 0
+   * @param dni número de DNI
+   * @returns true si es válido, false en caso contrario
+   */
+  static validateDNI(dni: string): boolean {
+    if (!dni) {
+      return false;
+    }
+    const dniString = dni.toString();
+    return /^\d{8}$/.test(dniString);
+  }
+
+  /**
+   * Validador para uso en formularios Angular
+   * Valida que el DNI peruano sea válido (8 dígitos numéricos)
+   * @returns ValidatorFn para usar en FormControl
+   */
+  static dniPeruanoValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value.toString()) {
+        return null;
+      }
+      const isValid = FormValitador.validateDNI(control.value.toString());
+      return isValid ? null : { dniPeruano: true };
+    };
+  }
+
+  private static _deleteError(arrayErrors: any = {}, errorKey: string) {
+    if (arrayErrors && arrayErrors.hasOwnProperty(errorKey)) delete arrayErrors[errorKey];
+    return arrayErrors && Object.keys(arrayErrors).length > 0 ? arrayErrors : null;
+  }
+
+  /**
+   * @param cant Cantidad de números permitidos
+   * @param name Nombre que irá en la descripción que devolverá
+   * @returns ValidatorFn
+   */
+  static validateCantNumber(cant: number, name: string): ValidatorFn {
+    if (!Number.isInteger(cant) || cant <= 0) {
+      return (_: AbstractControl): ValidationErrors | null => null;
+    }
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value == null || control.value === '') return null;
+      const valueStr = control.value.toString();
+      const regex = new RegExp(`^\\d{${cant}}$`);
+      const isValid = regex.test(valueStr);
+      return isValid ? null : { validateCantNumber: { cant, name } };
+    };
+  }
+
+  /**
+   * dateMinHours()
+   * Valida que la hora seleccionada no sea menor a la hora actual, debe incluir el minuto actual, pero no el segundo actual
+   * La hora viene en formato de 24 horas (HH:mm)
+   * @returns
+   */
+
+  static minHours(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(control.value.toString());
+      if (!match) {
+        return { minHours: true };
+      }
+
+      const selectedMinutes = Number(match[1]) * 60 + Number(match[2]);
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+      return selectedMinutes >= currentMinutes ? null : { minHours: true };
+    };
+  }
+  /**
+   * @alias todayPreciceValidate()
+   * Valida primero que el día sea mayor al de hoy, si es asi es retirna valido, si es hoy día entonces debe validar que la hora sea mayor a la actual
+   * Valida que la hora seleccionada no sea menor a la hora actual, debe incluir el minuto actual, pero no el segundo actual
+   * La hora viene en formato de 24 horas (HH:mm)
+   * @returns
+   */
+  static todayPreciceValidate(today: string, hourSelected: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const grupo = formGroup as FormGroup;
+      const hoy = grupo.get(today)?.value;
+      const hour = grupo.get(hourSelected)?.value;
+
+      if (!hoy || !hour) {
+        return null;
+      }
+
+      const dateParts = /^((?:\d{4})-(\d{2})-(\d{2}))$/.exec(hoy);
+      const displayDateParts = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(hoy);
+      const hourParts = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(hour);
+      if ((!dateParts && !displayDateParts) || !hourParts) {
+        return { todayPreciceValidate: true };
+      }
+
+      const year = dateParts ? Number(dateParts[1].slice(0, 4)) : Number(displayDateParts![3]);
+      const month = dateParts ? Number(dateParts[2]) - 1 : Number(displayDateParts![2]) - 1;
+      const day = dateParts ? Number(dateParts[3]) : Number(displayDateParts![1]);
+      const selectedDate = new Date(year, month, day);
+      const now = new Date();
+
+      const isValidDate =
+        selectedDate.getFullYear() === year &&
+        selectedDate.getMonth() === month &&
+        selectedDate.getDate() === day;
+      if (!isValidDate) {
+        return { todayPreciceValidate: true };
+      }
+
+      const selectedDay = new Date(year, month, day).setHours(0, 0, 0, 0);
+      const currentDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+      if (selectedDay > currentDay) {
+        return null;
+      }
+      if (selectedDay < currentDay) {
+        return { todayPreciceValidate: true };
+      }
+
+      const selectedMinutes = Number(hourParts[1]) * 60 + Number(hourParts[2]);
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      return selectedMinutes >= currentMinutes ? null : { todayPreciceValidate: true };
+    };
+  }
+}

@@ -6,7 +6,8 @@
     "noImplicitOverride": true,
     "paths": {
       "fex-alert": ["./dist/fex-alert"],
-      "fex-pagination": ["./dist/fex-pagination"]
+      "fex-pagination": ["./dist/fex-pagination"],
+      "fex-platform-core": ["./dist/fex-platform-core"]
     },
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -42,6 +43,12 @@
     },
     {
       "path": "./projects/fex-testbed-app/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/fex-platform-core/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/fex-platform-core/tsconfig.spec.json"
     }
   ]
 }

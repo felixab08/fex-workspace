@@ -118,6 +118,32 @@
           "builder": "@angular/build:unit-test"
         }
       }
+    },
+    "fex-platform-core": {
+      "projectType": "library",
+      "root": "projects/fex-platform-core",
+      "sourceRoot": "projects/fex-platform-core/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/fex-platform-core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/fex-platform-core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/fex-platform-core/tsconfig.spec.json"
+          }
+        }
+      }
     }
   }
 }

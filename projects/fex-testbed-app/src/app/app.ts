@@ -1,11 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { FexPagination, LinkParamService } from 'fex-pagination';
+import { LinkParamService } from 'fex-pagination';
 import { ProductosService } from './service';
 import { ProductosDataService } from './mock/productos.service';
 import { IProducto } from './interface';
 import { rxResource } from '@angular/core/rxjs-interop';
+
+import { TitleComponent } from 'fex-platform-core';
 @Component({
-  imports: [FexPagination],
+  imports: [TitleComponent],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
@@ -17,7 +19,6 @@ export class App {
   productos = signal<IProducto[] | null>(null);
   public _paginationService = inject(LinkParamService);
   constructor() {}
-
 
   productoResorce = rxResource({
     params: () => ({

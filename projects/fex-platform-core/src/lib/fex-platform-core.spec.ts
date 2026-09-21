@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FexAlert } from './fex-alert';
+import { FexPlatformCore } from './fex-platform-core';
 
-describe('FexAlert', () => {
-  let component: FexAlert;
-  let fixture: ComponentFixture<FexAlert>;
+describe('FexPlatformCore', () => {
+  let component: FexPlatformCore;
+  let fixture: ComponentFixture<FexPlatformCore>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FexAlert],
+      imports: [FexPlatformCore],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FexAlert);
+    fixture = TestBed.createComponent(FexPlatformCore);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

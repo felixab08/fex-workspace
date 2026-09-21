@@ -1,8 +1,8 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/fex-alert",
+  "dest": "../../dist/fex-platform-core",
+  "assets": ["./assets", "./styles"],
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "allowedNonPeerDependencies": ["fex-alert"]
+  }
 }

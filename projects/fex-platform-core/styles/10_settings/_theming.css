@@ -1,0 +1,58 @@
+:root {
+  --color-01: #ffffff;
+  --color-02: #222222;
+
+  --color-10: #707070;
+  --color-11: #d8d8d8;
+  --color-12: #f7f8f8;
+
+  --color-21: #803844;
+  --color-22: #702f3a;
+  --color-23: #56232c;
+  --color-24: #f7eeef;
+  --color-25: #f8e1e4;
+
+  --color-31: #70a2ff;
+  --color-32: #3ea00e;
+  --color-33: #efc548;
+  --color-34: #eb2626;
+  --color-35: #f5fbf6;
+  --color-36: #fffbf6;
+  --color-37: #fdf2f2;
+  --color-38: #dcefbf;
+  --color-39: #f7dcdc;
+  --color-40: #f9e6af;
+  --color-41: #d9e5ff;
+  --color-42: #f5d9a8;
+  --color-43: #5c7f4c;
+  --color-44: #8ca08b;
+  --color-45: #2f2f2f;
+  --color-50: #111111;
+  --color-60: #d43d3d;
+
+  --color-shadow-00: rgba(0, 0, 0, 0);
+  --color-shadow-01: rgba(0, 0, 0, 0.1);
+
+  --border-radius-01: 2px;
+}
+
+[data-color-theme='light'] {
+  --color-01: #e3e3e3;
+  --color-11: #9d9d9d;
+  --color-12: #d7d7d7;
+}
+
+[data-color-theme='dark'] {
+  --color-01: #121212;
+  --color-02: #ecebeb;
+
+  --color-10: #727272;
+  --color-11: #474747;
+  --color-12: #232323;
+
+  --color-21: #f75154;
+  --color-22: #f76164;
+  --color-23: #dd6366;
+  --color-24: #111111;
+  --color-25: #111010;
+}

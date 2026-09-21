@@ -1,5 +1,5 @@
 {
-  "name": "fex-alert",
+  "name": "fex-platform-core",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^22.1.0",

@@ -1,0 +1,50 @@
+@theme {
+  --color-primary: var(--color-21);
+  --color-secondary: var(--color-43);
+
+  --color-text: var(--color-02);
+  --color-text-inverted: var(--color-01);
+
+  --color-background-active-item: var(--color-21);
+  --color-background-app-startup: var(--color-01);
+  --color-background-footer: var(--color-10);
+  --color-background-header: var(--color-01);
+  --color-background-highlight: var(--color-01);
+  --color-background-hover: var(--color-22);
+  --color-background-hover-light: var(--color-24);
+  --color-background-press: var(--color-23);
+  --color-background-selected-text: var(--color-21);
+  --color-background: var(--color-12);
+  --color-background-light: var(--color-25);
+  --color-background-head: var(--color-12);
+
+  --color-shadow-00: rgba(0, 0, 0, 0);
+  --color-shadow-01: rgba(0, 0, 0, 0.1);
+
+  --color-border: var(--color-11);
+  --color-border-green: var(--color-43);
+  --color-border-grey: var(--color-44);
+
+  --color-scrollbar-thumb-hover: var(--color-22);
+  --color-scrollbar-thumb: var(--color-10);
+
+  --color-label: var(--color-10);
+  --color-disabled: var(--color-11);
+  --color-focus: var(--color-31);
+  --color-error: var(--color-34);
+  --color-error-light: var(--color-37);
+  --color-success: var(--color-32);
+  --color-success-light: var(--color-35);
+  --color-warning: var(--color-33);
+  --color-warning-light: var(--color-36);
+  --color-tasks: var(--color-38);
+  --color-alarms: var(--color-39);
+  --color-deadline: var(--color-40);
+  --color-annotation: var(--color-41);
+  --color-warnings: var(--color-42);
+  --color-hover: var(--color-45);
+  --color-notification: var(--color-60);
+
+  --color-top-black: var(--color-50);
+  --color-head-view: var(--color-11);
+}
