@@ -1,14 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
-import { LinkParamService } from 'fex-pagination';
-import { ProductosService } from './service';
-import { ProductosDataService } from './mock/productos.service';
-import { IProducto } from './interface';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { RouterOutlet } from '@angular/router';
 
-import { TitleComponent } from 'fex-platform-core';
-import { RouterOutlet } from '../../../../node_modules/@angular/router/types/_router_module-chunk';
 @Component({
-  imports: [TitleComponent, RouterOutlet],
+  imports: [RouterOutlet],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

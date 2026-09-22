@@ -4,5 +4,6 @@
   "assets": ["./assets", "./styles"],
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": ["fex-platform-core"]
 }
