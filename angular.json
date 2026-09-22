@@ -6,58 +6,6 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "fex-pagination": {
-      "projectType": "library",
-      "root": "projects/fex-pagination",
-      "sourceRoot": "projects/fex-pagination/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/fex-pagination/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/fex-pagination/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "projects/fex-pagination/tsconfig.spec.json"
-          }
-        }
-      }
-    },
-    "fex-alert": {
-      "projectType": "library",
-      "root": "projects/fex-alert",
-      "sourceRoot": "projects/fex-alert/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/fex-alert/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/fex-alert/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "projects/fex-alert/tsconfig.spec.json"
-          }
-        }
-      }
-    },
     "fex-testbed-app": {
       "projectType": "application",
       "schematics": {},
@@ -123,7 +71,7 @@
       "projectType": "library",
       "root": "projects/fex-platform-core",
       "sourceRoot": "projects/fex-platform-core/src",
-      "prefix": "lib",
+      "prefix": "fix",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
