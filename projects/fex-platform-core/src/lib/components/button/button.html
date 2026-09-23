@@ -1,0 +1,19 @@
+<button
+  pcofocusAnimate="buttonfocusAnimate"
+  [class]="type() ? type() : ''"
+  [ngClass]="{ 'row-reverse': reverse(), btnFloatRight: alignRight(), adaptable: adaptable() }"
+  [attr.title]="tooltip() ? tooltip() : ''"
+  [attr.aria-label]="ariaLabel || label || tooltip || type"
+  [disabled]="disabled()"
+  tabindex="0"
+  (click)="onClick.emit($event)"
+  (focus)="onFocus.emit($event)"
+  (blur)="onBlur.emit($event)"
+>
+  @if (icon()) {
+    <em class="icon" [ngClass]="icon"></em>
+  }
+  @if (label()) {
+    <span class="label">{{ label() }}</span>
+  }
+</button>

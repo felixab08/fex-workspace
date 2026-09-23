@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-title-page',
@@ -6,4 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './title-page.html',
   changeDetection: ChangeDetectionStrategy.Eager,
 })
-export class TitlePage {}
+export class TitlePage {
+  readonly title = input<string>('');
+  readonly subTitle = input<string>('');
+}

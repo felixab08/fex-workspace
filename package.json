@@ -24,6 +24,8 @@
     "@angular/platform-browser": "^22.1.0",
     "@angular/router": "^22.1.0",
     "lodash-es": "^4.18.1",
+    "ngx-phosphor-icons": "^1.0.7",
+    "phosphor-icons": "^1.4.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

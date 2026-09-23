@@ -1,7 +1,15 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/fex-platform-core",
-  "assets": ["./assets", "./styles"],
+  "assets": [
+    "./assets",
+    "./styles",
+    {
+      "glob": "**/*",
+      "input": "node_modules/ngx-phosphor-icons/icons/",
+      "output": "./assets/icons/"
+    }
+  ],
   "lib": {
     "entryFile": "src/public-api.ts"
   },

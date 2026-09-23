@@ -1,0 +1,97 @@
+<input
+  (ngModelChange)="onModelChange($event)"
+  [(ngModel)]="value"
+  [attr.autocomplete]="autocomplete() == 'nope' ? 'nope' : 'on'"
+  [attr.invalid]="showError()"
+  [attr.name]="autocomplete() == 'nope' ? null : autocomplete()"
+  [disabled]="disabled"
+  [id]="id"
+  placeholder="{{ placeholder() }}"
+  [required]="requiredValue()"
+  [step]="step()"
+  [type]="type()"
+  [accept]="accept()"
+  [attr.title]="tooltip() ? tooltip() : ''"
+  (blur)="onBlur($event)"
+  (focus)="onFocus($event)"
+  [class]="isFile() ? 'input-type-file' : ''"
+  #file
+/>
+
+<label [for]="id" [ngClass]="labelValue() === placeholder() ? 'visibility hidden' : ''">
+  {{ label() }}
+  <span [ngClass]="requiredValue() ? 'required-input' : ''">{{
+    requiredValue() ? ' *' : null
+  }}</span>
+</label>
+
+@if (value && !disabled) {
+  <button type="minifab" icon="ph-x" (click)="onModelChange('')"></button>
+}
+<ng-container [ngSwitch]="type()">
+  <fix-button
+    *ngSwitchCase="'search'"
+    type="minifab"
+    icon="ph-magnifying-glass"
+    [disabled]="disabled"
+  ></fix-button>
+  <fix-button
+    *ngSwitchCase="'time'"
+    type="minifab"
+    icon="ph-clock"
+    [disabled]="disabled"
+  ></fix-button>
+  <fix-button
+    *ngSwitchCase="'password'"
+    type="minifab"
+    icon="ph-eye-slash"
+    [disabled]="disabled"
+  ></fix-button>
+  <fix-button
+    *ngSwitchCase="'tel'"
+    type="minifab"
+    icon="ph-phone-call"
+    [disabled]="disabled"
+  ></fix-button>
+  <fix-button
+    *ngSwitchCase="'file'"
+    type="minifab"
+    icon="ph-upload-simple"
+    (click)="file.click()"
+    [disabled]="disabled"
+  ></fix-button>
+</ng-container>
+@if (showError()) {
+  <div class="validation error">
+    @if (errors['required']) {
+      <span>{{ 'required_value_error' }}</span>
+    }
+    <span *ngIf="errors['minlength']"
+      >{{ 'validator_minlength' }} {{ errors['minlength']['requiredLength'] }}</span
+    >
+    <span *ngIf="errors['maxlength']"
+      >{{ 'validator_maxlength' }} {{ errors['maxlength']['requiredLength'] }}</span
+    >
+    <!-- <span *ngIf="errors['min']">{{ 'validator_min' }} {{ errors['min']['min'] }}</span>
+    <span *ngIf="errors['max']">{{ 'validator_max' }} {{ errors['max']['max'] }}</span>
+    <span *ngIf="errors['dniError']">{{ 'validator_dniError' }}</span>
+    <span *ngIf="errors['ibanError']">{{ 'validator_ibanError' }}</span>
+    <span *ngIf="errors['numberFormatFromTo']">{{ 'validator_pattern' }}</span>
+    <span *ngIf="errors['twodecimalsError']">{{ 'validator_twodecimalsError' }}</span>
+    <span *ngIf="errors['email']">{{ 'validator_email' }}</span>
+    <span *ngIf="errors['pattern']">{{ 'validator_pattern' }}</span>
+    <span *ngIf="errors['errorTimeRange']">{{ 'range_time_not_valid' }}</span>
+    <span *ngIf="errors['errorRequired']">{{ 'required_value_error' }}</span>
+    <span *ngIf="errors['requiredFileType']">{{ 'required_file_type' }}</span>
+    <span *ngIf="errors['errorCompareNumber']">{{ 'validator_compare_numbers' }}</span>
+    <span *ngIf="errors['errorAlreadyExists']">{{ 'validator_already_exists' }}</span>
+    <span *ngIf="errors['errorNegativeNumbers']">{{ 'validator_negative_numbers_not_valid' }}</span> -->
+    @for (foundPatten of foundPattens; track $index) {
+      <ng-container>
+        @if (errors[foundPatten.key]) {
+          <span>{{ foundPatten.key }} {{ errors[foundPatten.key]['message'] }}</span>
+        }
+      </ng-container>
+    }
+  </div>
+}
